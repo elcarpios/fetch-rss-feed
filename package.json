@@ -1,6 +1,6 @@
 {
 	"name": "fetch-rss-feed",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"description": "RSS fetcher with optional file output",
 	"main": "index.js",
 	"repository": {
