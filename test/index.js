@@ -33,7 +33,7 @@ describe('fetch-rss-feeder', () => {
 
 		normalizeStringsMock = sinon.spy()
 
-		fetchRssFeedInjected = proxyquire('../index', {
+		fetchRssFeedInjected = proxyquire('../src/index', {
 			'fs': fsMock,
 			'path': pathMock,
 			'mkdirp': mkdirpMock,
