@@ -1,14 +1,14 @@
 {
 	"name": "fetch-rss-feed",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"description": "RSS fetcher with optional file output",
-	"main": "src/index.js",
+	"main": "index.js",
 	"repository": {
-		"type" : "git",
-  		"url" : "https://github.com/elcarpios/fetch-rss-feed.git"
+		"type": "git",
+		"url": "https://github.com/elcarpios/fetch-rss-feed.git"
 	},
 	"scripts": {
-		"start": "node src/index.js",
+		"start": "node index.js",
 		"test": "mocha"
 	},
 	"author": "elcarpios",
@@ -17,11 +17,14 @@
 		"rss-parser": "^3.7.3"
 	},
 	"devDependencies": {
+		"case-anything": "^0.1.0",
+		"mkdirp": "^0.5.1",
 		"mocha": "^6.2.2",
+		"normalize-strings": "^1.1.0",
 		"proxyquire": "^2.1.3",
 		"sinon": "^7.5.0"
 	},
 	"publishConfig": {
-		"registry": "https://npm.pkg.github.com/"
+		"registry": "https://npm.pkg.github.com/@elcarpios"
 	}
 }

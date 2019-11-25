@@ -3,25 +3,43 @@ const sinon = require('sinon');
 const proxyquire = require('proxyquire');
 
 describe('fetch-rss-feeder', () => {
-	let fetchRssFeedInjected, parseURLSpy, fsMock;
+	let fetchRssFeedInjected, parseURLSpy, fsMock, mkdirpMock, pathMock, caseAnithingMock, normalizeStringsMock;
 	const feeds = ['url1'];
 
 	function rssParserMock() {
 		this.parseURL = parseURLSpy
 	};
 
-	const expectedValues = { 'item1': {} };
+	const expectedValues = { 'title': 'test', items: [] };
 
 	beforeEach(() => {
-		parseURLSpy = sinon.fake.returns(expectedValues);
+		parseURLSpy = sinon.fake.returns(Promise.resolve(expectedValues));
 
 		fsMock = {
 			writeFileSync: sinon.fake()
 		};
 
-		fetchRssFeedInjected = proxyquire('../src/index', {
+		mkdirpMock = {
+			sync: sinon.spy()
+		};
+
+		pathMock = {
+			join: sinon.spy()
+		};
+
+		caseAnithingMock = {
+			kebabCase: sinon.fake.returns('test')		
+		};
+
+		normalizeStringsMock = sinon.spy()
+
+		fetchRssFeedInjected = proxyquire('../index', {
 			'fs': fsMock,
-			'rss-parser': rssParserMock
+			'path': pathMock,
+			'mkdirp': mkdirpMock,
+			'rss-parser': rssParserMock,
+			'case-anything': caseAnithingMock,
+			'normalize-strings': normalizeStringsMock
 		});
 	});
 
@@ -30,21 +48,8 @@ describe('fetch-rss-feeder', () => {
 	});	
 
     it('should fetch per every url in the array', () => {
-		fetchRssFeedInjected(feeds);
+		fetchRssFeedInjected(feeds, 'path');
 
 		assert.equal(parseURLSpy.callCount, 1);
 	});
-	
-	it('should write the output in a file', async () => {
-		await fetchRssFeedInjected(feeds, 'path');
-
-		assert.equal(fsMock.writeFileSync.callCount, 1);
-	});
-	
-	it('should return the values if there is no path defined', async () => {
-		const values = await fetchRssFeedInjected(feeds);
-
-		assert.notDeepStrictEqual(values, expectedValues);
-    });
-
 });
