@@ -3,8 +3,12 @@
 	"version": "1.0.0",
 	"description": "RSS fetcher with optional file output",
 	"main": "src/index.js",
+	"repository": {
+		"type" : "git",
+  		"url" : "https://github.com/elcarpios/fetch-rss-feed.git"
+	},
 	"scripts": {
-		"start": "node index.js",
+		"start": "node src/index.js",
 		"test": "mocha"
 	},
 	"author": "elcarpios",
